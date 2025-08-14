@@ -43,6 +43,11 @@ CREATE TABLE ORDER_DETAILS (
     FOREIGN KEY (book_id) REFERENCES BOOKS(book_id)
 );
 
+CREATE TABLE Authors (
+    author_id INT PRIMARY KEY,
+    author_name VARCHAR(215)
+);
+
 /* If it literally expects the spaced identifier, quote it: */
 /*
 CREATE TABLE ORDER_DETAILS (
