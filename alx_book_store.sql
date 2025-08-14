@@ -48,6 +48,16 @@ CREATE TABLE Authors (
     author_name VARCHAR(215)
 );
 
+CREATE TABLE Books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(130),
+    author_id INT,
+    price DOUBLE,
+    publication_date DATE,
+    CONSTRAINT fk_books_author
+        FOREIGN KEY (author_id) REFERENCES Authors(author_id)
+);
+
 /* If it literally expects the spaced identifier, quote it: */
 /*
 CREATE TABLE ORDER_DETAILS (
