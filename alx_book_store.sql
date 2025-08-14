@@ -72,6 +72,15 @@ CREATE TABLE Orders (
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
+CREATE TABLE Order_Details (
+    order_detail_id INT PRIMARY KEY,
+    order_id INT,
+    book_id INT,
+    quantity DOUBLE,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
 /* If it literally expects the spaced identifier, quote it: */
 /*
 CREATE TABLE ORDER_DETAILS (
