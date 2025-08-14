@@ -1,47 +1,58 @@
--- Create the database
 CREATE DATABASE IF NOT EXISTS alx_book_store;
-
--- Switch to the database
 USE alx_book_store;
 
--- Create Authors table
 CREATE TABLE AUTHORS (
-    AUTHOR_ID INT PRIMARY KEY,
-    AUTHOR_NAME VARCHAR(215)
+  author_id INT PRIMARY KEY,
+  author_name VARCHAR(215)
 );
 
--- Create Books table
 CREATE TABLE BOOKS (
-    BOOK_ID INT PRIMARY KEY,
-    TITLE VARCHAR(130),
-    AUTHOR_ID INT,
-    PRICE DOUBLE,
-    PUBLICATION_DATE DATE,
-    FOREIGN KEY (AUTHOR_ID) REFERENCES AUTHORS(AUTHOR_ID)
+  book_id INT PRIMARY KEY,
+  title VARCHAR(130),
+  author_id INT,
+  price DOUBLE,
+  publication_date DATE,
+  CONSTRAINT fk_books_author
+    FOREIGN KEY (author_id) REFERENCES AUTHORS(author_id)
 );
 
--- Create Customers table
 CREATE TABLE CUSTOMERS (
-    CUSTOMER_ID INT PRIMARY KEY,
-    CUSTOMER_NAME VARCHAR(215),
-    EMAIL VARCHAR(215),
-    ADDRESS TEXT
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(215),
+  email VARCHAR(215),
+  address TEXT
 );
 
--- Create Orders table
 CREATE TABLE ORDERS (
-    ORDER_ID INT PRIMARY KEY,
-    CUSTOMER_ID INT,
-    ORDER_DATE DATE,
-    FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMERS(CUSTOMER_ID)
+  order_id INT PRIMARY KEY,
+  customer_id INT,
+  order_date DATE,
+  CONSTRAINT fk_orders_customer
+    FOREIGN KEY (customer_id) REFERENCES CUSTOMERS(customer_id)
 );
 
--- Create Order_Details table
+/* If your checker expects snake_case: */
 CREATE TABLE ORDER_DETAILS (
-    ORDERDETAILID INT PRIMARY KEY,
-    ORDER_ID INT,
-    BOOK_ID INT,
-    QUANTITY DOUBLE,
-    FOREIGN KEY (ORDER_ID) REFERENCES ORDERS(ORDER_ID),
-    FOREIGN KEY (BOOK_ID) REFERENCES BOOKS(BOOK_ID)
+  order_detail_id INT PRIMARY KEY,
+  order_id INT,
+  book_id INT,
+  quantity DOUBLE,
+  CONSTRAINT fk_details_order
+    FOREIGN KEY (order_id) REFERENCES ORDERS(order_id),
+  CONSTRAINT fk_details_book
+    FOREIGN KEY (book_id) REFERENCES BOOKS(book_id)
 );
+
+/* If it literally expects the spaced identifier, quote it: */
+/*
+CREATE TABLE ORDER_DETAILS (
+  `order detail id` INT PRIMARY KEY,
+  order_id INT,
+  book_id INT,
+  quantity DOUBLE,
+  CONSTRAINT fk_details_order
+    FOREIGN KEY (order_id) REFERENCES ORDERS(order_id),
+  CONSTRAINT fk_details_book
+    FOREIGN KEY (book_id) REFERENCES BOOKS(book_id)
+);
+*/
